@@ -14,16 +14,6 @@ LIGHT='\033[0;37m'
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "Checking VPS"
-IZIN=$( curl https://raw.githubusercontent.com/AkbarStoreVPN/perizinan/main/ipvps.txt | grep $MYIP )
-if [ $MYIP = $IZIN ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Please Contact Admin!!"
-echo -e "${NC}${LIGHT}Facebook : https://m.facebook.com/lis.tio.718"
-echo -e "${NC}${LIGHT}WhatsApp : 081545854516"
-echo -e "${NC}${LIGHT}Telegram : https://t.me/Akbar218"
-exit 0
 fi
 clear
 if [[ "$IP" = "" ]]; then
@@ -39,7 +29,7 @@ domain=$IP2
 fi
 until [[ $VPN_USER =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 		read -rp "Username : " -e VPN_USER
-		CLIENT_EXISTS=$(grep -w $VPN_USER /var/lib/akbarstorevpn/data-user-pptp | wc -l)
+		CLIENT_EXISTS=$(grep -w $VPN_USER /var/lib/vpn/data-user-pptp | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then
 			echo ""
@@ -60,7 +50,7 @@ EOF
 
 # Update file attributes
 chmod 600 /etc/ppp/chap-secrets*
-echo -e "### $VPN_USER $exp">>"/var/lib/akbarstorevpn/data-user-pptp"
+echo -e "### $VPN_USER $exp">>"/var/lib/vpn/data-user-pptp"
 cat <<EOF
 
 ============================
