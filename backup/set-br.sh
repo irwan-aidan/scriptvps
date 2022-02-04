@@ -14,19 +14,9 @@ LIGHT='\033[0;37m'
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "Checking VPS"
-IZIN=$( curl https://raw.githubusercontent.com/AkbarStoreVPN/perizinan/main/ipvps.txt | grep $MYIP )
-if [ $MYIP = $IZIN ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Please Contact Admin!!"
-echo -e "${NC}${LIGHT}Facebook : https://m.facebook.com/lis.tio.718"
-echo -e "${NC}${LIGHT}WhatsApp : 081545854516"
-echo -e "${NC}${LIGHT}Telegram : https://t.me/Akbar218"
-exit 0
-fi
+
 # Link Hosting Kalian
-akbarvpn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/backup"
+akbarvpn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/backup"
 
 curl https://rclone.org/install.sh | bash
 printf "q\n" | rclone config
@@ -48,9 +38,9 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user akbarssh21@gmail.com
-from akbarssh21@gmail.com
-password qngaxejnuuworequ 
+user irwanmohi@gmail.com
+from irwanmohi@gmail.com
+password 151007Ad* 
 logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
