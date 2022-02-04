@@ -1,9 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head>
-<meta http-equiv="REFRESH" content="0;url=https://github.com/LamVpn/scriptvps">
-</head>
-<body>
-<p>URL Redirection</p>
+    <head>
+    <title>
+    DOWNLOAD CONFIG    
+    </title>
+    </head>
+<body bgcolor="black">
+    <center>
+    <h1 style="color: lightseagreen;font-family: impact;">VPN-Aidan AUTOSCRIPT</h1>
+    <a href="tcp.ovpn" download><button style="border: 1px solid red;background-color: transparent;color: wheat;border-radius: 10px;">DOWNLOAD TCP OVPN CONFIG</button></a>
+    <br><br>
+    <a href="udp.ovpn" download><button style="border: 1px solid red;background-color: transparent;color: wheat;border-radius: 10px;">DOWNLOAD UDP OVPN CONFIG</button></a>
+    <br><br>
+    <a href="ssl.ovpn" download><button style="border: 1px solid red;background-color: transparent;color: wheat;border-radius: 10px;">SSL CONFIG</button></a>
+    <br><br>
+    <a href="configs.zip" download><button style="border: 1px solid red;background-color: transparent;color: wheat;border-radius: 10px;">ALL CONFIG</button></a>       
+        </center>
 </body>
 </html>
