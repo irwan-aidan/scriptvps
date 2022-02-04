@@ -69,6 +69,7 @@ cat > /etc/openvpn/tcp.ovpn <<-END
 client
 dev tun
 proto tcp
+management 127.0.0.1 5555
 remote xxxxxxxxx 1194
 resolv-retry infinite
 route-method exe
@@ -87,6 +88,7 @@ cat > /etc/openvpn/udp.ovpn <<-END
 client
 dev tun
 proto udp
+management 127.0.0.1 7505
 remote xxxxxxxxx 2200
 resolv-retry infinite
 route-method exe
@@ -105,6 +107,7 @@ cat > /etc/openvpn/ssl.ovpn <<-END
 client
 dev tun
 proto tcp
+management 127.0.0.1 5555
 remote xxxxxxxxx 990
 resolv-retry infinite
 route-method exe
