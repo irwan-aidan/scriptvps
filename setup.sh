@@ -20,48 +20,35 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 # ==========================================
 # Link Hosting Kalian Untuk Ssh Vpn
-akbarvpn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/ssh"
+akbarvpn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/ssh"
 # Link Hosting Kalian Untuk Sstp
-akbarvpnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/sstp"
+akbarvpnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/sstp"
 # Link Hosting Kalian Untuk Ssr
-akbarvpnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/ssr"
+akbarvpnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/ssr"
 # Link Hosting Kalian Untuk Shadowsocks
-akbarvpnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/shadowsocks"
+akbarvpnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/shadowsocks"
 # Link Hosting Kalian Untuk Wireguard
-akbarvpnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/wireguard"
+akbarvpnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/wireguard"
 # Link Hosting Kalian Untuk Xray
-akbarvpnnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/xray"
+akbarvpnnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/xray"
 # Link Hosting Kalian Untuk Ipsec
-akbarvpnnnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/ipsec"
+akbarvpnnnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/ipsec"
 # Link Hosting Kalian Untuk Backup
-akbarvpnnnnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/backup"
+akbarvpnnnnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/backup"
 # Link Hosting Kalian Untuk Websocket
-akbarvpnnnnnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/websocket"
+akbarvpnnnnnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/websocket"
 # Link Hosting Kalian Untuk Ohp
-akbarvpnnnnnnnnnn="raw.githubusercontent.com/AkbarStoreVPN/scriptvps/main/ohp"
+akbarvpnnnnnnnnnn="raw.githubusercontent.com/irwan-aidan/scriptvps/main/ohp"
 
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "Checking VPS"
-IZIN=$( curl https://raw.githubusercontent.com/AkbarStoreVPN/perizinan/main/ipvps.txt | grep $MYIP )
-if [ $MYIP = $IZIN ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Please Contact Admin!!"
-echo -e "${NC}${LIGHT}Facebook : https://m.facebook.com/lis.tio.718"
-echo -e "${NC}${LIGHT}WhatsApp : 081545854516"
-echo -e "${NC}${LIGHT}Telegram : https://t.me/Akbar218"
-exit 0
-fi
-rm -f setup.sh
-clear
 if [ -f "/etc/xray/domain" ]; then
 echo "Script Already Installed"
 exit 0
 fi
-mkdir /var/lib/akbarstorevpn;
-echo "IP=" >> /var/lib/akbarstorevpn/ipvps.conf
+mkdir /var/lib/vpn;
+echo "IP=" >> /var/lib/vpn/ipvps.conf
 wget https://${akbarvpn}/cf.sh && chmod +x cf.sh && ./cf.sh
 #install ssh ovpn
 wget https://${akbarvpn}/ssh-vpn.sh && chmod +x ssh-vpn.sh && screen -S ssh-vpn ./ssh-vpn.sh
@@ -94,7 +81,7 @@ rm -f /root/ohp.sh
 cat <<EOF> /etc/systemd/system/autosett.service
 [Unit]
 Description=autosetting
-Documentation=https://t.me/Akbar218
+Documentation=https://t.me/irwanmohi
 
 [Service]
 Type=oneshot
@@ -146,7 +133,7 @@ echo "   - OHP OpenVPN             : 8383"  | tee -a log-install.txt
 echo "   - Tr Go                   : 2087"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   >>> Server Information & Other Features"  | tee -a log-install.txt
-echo "   - Timezone                : Asia/Jakarta (GMT +7)"  | tee -a log-install.txt
+echo "   - Timezone                : Asia/Kuala_Lumpur (GMT +8)"  | tee -a log-install.txt
 echo "   - Fail2Ban                : [ON]"  | tee -a log-install.txt
 echo "   - Dflate                  : [ON]"  | tee -a log-install.txt
 echo "   - IPtables                : [ON]"  | tee -a log-install.txt
@@ -161,12 +148,12 @@ echo "   - White Label" | tee -a log-install.txt
 echo "   - Installation Log --> /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   - Dev/Main                : Horas Marolop Amsal Siregar"  | tee -a log-install.txt
-echo "   - Recode                  : Akbar Maulana" | tee -a log-install.txt
-echo "   - Telegram                : T.me/Akbar218"  | tee -a log-install.txt
+echo "   - Recode                  : Irwan Mohi" | tee -a log-install.txt
+echo "   - Telegram                : T.me/irwanmohi"  | tee -a log-install.txt
 echo "   - Instagram               : ~"  | tee -a log-install.txt
-echo "   - Whatsapp                : 081545854516"  | tee -a log-install.txt
-echo "   - Facebook                : https://m.facebook.com/lis.tio.718" | tee -a log-install.txt
-echo "----------------------Script Created By Akbar Maulana Project----------------------" | tee -a log-install.txt
+echo "   - Whatsapp                : 01123817467"  | tee -a log-install.txt
+echo "   - Facebook                : https://m.facebook.com/irwanmohi" | tee -a log-install.txt
+echo "----------------------Script Created By Irwan Mohi Project----------------------" | tee -a log-install.txt
 echo ""
 echo " Reboot 15 Sec"
 sleep 15
