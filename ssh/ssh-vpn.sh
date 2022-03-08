@@ -24,7 +24,6 @@ echo -e "${NC}${LIGHT}Please Contact Admin!!"
 echo -e "${NC}${LIGHT}Facebook : https://m.facebook.com/lis.tio.718"
 echo -e "${NC}${LIGHT}WhatsApp : 081545854516"
 echo -e "${NC}${LIGHT}Telegram : https://t.me/Akbar218"
-exit 0
 fi
 # ==================================================
 # Link Hosting Kalian
