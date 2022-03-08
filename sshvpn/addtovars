@@ -1,0 +1,6 @@
+set_var EASYRSA_REQ_COUNTRY    "MY"
+set_var EASYRSA_REQ_PROVINCE   "Selangor"
+set_var EASYRSA_REQ_CITY       "Gombak"
+set_var EASYRSA_REQ_ORG        "Aidan Technologiea"
+set_var EASYRSA_REQ_EMAIL      "irwan@aidan.my"
+set_var EASYRSA_REQ_OU         "aidanvpn"
