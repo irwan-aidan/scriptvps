@@ -67,6 +67,9 @@ wget https://${akbarvpnnnnnnnn}/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 wget https://${akbarvpnnnnnnnnn}/edu.sh && chmod +x edu.sh && ./edu.sh
 # Ohp Server
 wget https://${akbarvpnnnnnnnnnn}/ohp.sh && chmod +x ohp.sh && ./ohp.sh
+#ntah
+#wget -O /usr/bin/paket https://raw.githubusercontent.com/irwan-aidan/scriptvps/main/padu/paket.sh && chmod +x /usr/bin/paket.sh
+
 
 rm -f /root/ssh-vpn.sh
 rm -f /root/sstp.sh
