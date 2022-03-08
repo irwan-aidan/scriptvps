@@ -22,7 +22,6 @@ echo -e "For Registration IP VPS"
 echo -e ""
 echo -e "======================================="
 echo -e ""
-exit 0
 fi
 
 clear
