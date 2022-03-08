@@ -1,0 +1,104 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e "   [1] Reboot Setiap 1 Jam"
+echo -e ""
+echo -e "   [2] Reboot Setiao 2 Jam"
+echo -e ""
+echo -e "   [3] Reboot Setiap 12 Jam"
+echo -e ""
+echo -e "   [4] Reboot Sekali Dalam Sehari"
+echo -e ""
+echo -e "   [5] Reboot Seminggu Sekali"
+echo -e ""
+echo -e "   [6] Reboot Sebulan Sekali"
+echo -e ""
+echo -e "   [7] Matikan Reboot Automatis"
+echo -e ""
+echo -e "   [8] Exit"
+echo -e ""
+read -p "   Select from options [1-8]:  " Reboot_Sys
+echo -e ""
+
+sleep 3
+clear
+case $Reboot_Sys in
+		1)
+		clear
+		echo "10 * * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+    echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+    echo -e " Mengatur Auto Reboot 1 Jam Sekali"
+    echo -e ""
+    exit
+    ;;
+		2)
+		clear
+		echo "10 */6 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+    echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Mengatur Auto Reboot 2 Jam Sekali"
+		echo -e ""
+		exit
+		;;
+		3)
+		clear
+		echo "10 */12 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Mengatur Auto Reboot 12 Jam Sekali"
+		echo -e ""
+		exit
+		;;
+		4)
+		clear
+		echo "10 0 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Mengatur Auto Reboot Sehari Sekali"
+		echo -e ""
+		exit
+		;;
+		5)
+		clear
+		echo "10 0 */7 * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Mengatur Auto Reboot Seminggu Sekali"
+		echo -e ""
+		exit
+		;;
+		6)
+		clear
+		echo "10 0 1 * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Mengatur Auto Reboot Sebulan Sekali"
+		echo -e ""
+		exit
+		;;
+		7)
+		clear
+		rm -f /etc/cron.d/reboot_sys
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Auto-Reboot Dinonaktifkan"
+		echo -e ""
+		exit
+		;;
+		8)
+		clear
+		exit
+		;;
+	esac
+service cron restart

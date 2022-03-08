@@ -1,0 +1,65 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e ""
+echo -e "$TITLE"
+cd
+source /usr/local/sbin/base-ports
+echo -e ""
+echo -e "\e[32m  Dropbear Ports: \e[0m"$dropbearport
+echo -e ""
+read -p $'\e[32m  Port mana yang harus diubah?: \e[0m' Port
+egrep "^$Port" /root/dropbearport >/dev/null
+if [ $? -eq 0 ]; then
+  READ01="\e[32m From Port $Port to Port?: \e[0m"
+  read -p "$(echo -e "$READ01")" Port_New
+	if grep -Fxq $Port_New /root/opensshport; then
+		echo -e ""
+		echo -e " OpenSSH Port Conflict"
+		echo -e " Port Sudah Digunakan"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/stunnel4port; then
+    echo -e ""
+		echo -e " Stunnel4 Port Conflict"
+		echo -e " Port Sudah Digunakan"
+		echo -e ""
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/openvpnport; then
+		echo -e ""
+		echo -e " OpenVPN Port Conflict"
+		echo -e " Port Sudah Digunakan"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/squidport; then
+		echo -e ""
+		echo -e " Squid Port Conflict"
+		echo -e " Port Sudah Digunakan"
+		echo -e ""
+		exit
+	fi
+	Port_Change="s/$Port/$Port_New/g";
+	sed -i $Port_Change /etc/default/dropbear
+	service dropbear restart > /dev/null
+	rm -f /root/dropbear
+	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+	clear
+	
+	echo -e ""
+	echo -e "$TITLE"
+  echo -e " Sukses Menyeting Port"
+  echo -e " Port Dropbear Anda sekarang: $dropbearport"
+	echo -e ""
+else
+	clear
+  echo -e ""
+  echo -e "$TITLE"
+	echo -e " Port tidak ada dalam konfigurasi server dropbear, keluar .."
+	echo -e ""
+fi
+

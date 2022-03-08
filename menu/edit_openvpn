@@ -1,0 +1,99 @@
+#!/bin/bash
+
+rm -f /root/opensshport
+rm -f /root/dropbearport
+rm -f /root/stunnel4port
+rm -f /root/openvpnport
+rm -f /root/squidport
+opensshport="$(netstat -ntlp | grep -i ssh | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+squidport="$(cat /etc/privoxy/config | grep -i listen-address | awk '{print $2}' | cut -d: -f2 | xargs )"
+echo $opensshport > /root/opensshport
+cat > /root/opensshport <<-END
+$opensshport
+END
+echo $dropbearport > /root/dropbearport
+cat > /root/dropbearport <<-END
+$dropbearport
+END
+echo $stunnel4port > /root/stunnel4port
+cat > /root/stunnel4port <<-END
+$stunnel4port
+END
+echo $openvpnport > /root/openvpnport
+cat > /root/openvpnport <<-END
+$openvpnport
+END
+echo $squidport > /root/squidport
+cat > /root/squidport <<-END
+$squidport
+END
+
+cd
+clear
+echo -e ""
+echo -e " == BonvScript == " | lolcat -a
+echo -e ""
+echo -e " OpenVPN Port: $openvpnport"
+echo -e ""
+read -p " Which Port Should Be Changed?: " Port
+egrep "^$Port" /root/openvpnport > /dev/null
+if [ $? -eq 0 ]; then
+	read -p " From Port $Port -> Port?: " Port_New
+	if grep -Fxq $Port_New /root/opensshport; then
+		echo -e ""
+		echo -e " OpenSSH Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/dropbearport; then
+		echo -e ""
+		echo -e " Dropbear Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/stunnel4port; then
+		echo -e ""
+		echo -e " Stunnel4 Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/squidport; then
+		echo -e ""
+		echo -e " Squid3 Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	Port_Change="s|port $Port|port $Port_New|g";
+Port_Change2="s|remote $(curl -4s http://ipinfo.io/ip).*|remote $(curl -4s http://ipinfo.io/ip) $Port_New|g";
+	sed -i "$Port_Change" /etc/openvpn/server_tcp.conf
+	sed -i "$Port_Change" /root/openvpnport
+sed -i "$Port_Change2" /var/www/openvpn/{GTMConfig.ovpn,SunConfig.ovpn,SunNoloadConfig.ovpn}
+	openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+	echo $openvpnport > /root/openvpnport
+	cat > /root/openvpnport <<-END
+	$openvpnport
+	END
+	systemctl restart openvpn-server@server_tcp
+	sleep 3
+	openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+	clear
+	echo -e " == BonvScript == " | lolcat -a
+	echo -e ""
+  echo -e " Successfully Reconfigured"
+  echo -e " your OpenVPN TCP Port is now: $openvpnport"
+	echo -e ""
+
+else
+	echo -e ""
+	echo -e " Port you entered does not"
+	echo -e " exist in Openvpn server config"
+	echo -e " exiting...."
+  echo -e ""
+fi

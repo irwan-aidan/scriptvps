@@ -1,0 +1,55 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e ""
+echo -e "$TITLE"
+echo -e ""
+echo -e "\e[32m Membuat Akun Acak\e[0m"
+echo -e ""
+read -p $'\e[32m  Berapa banyak yang harus dibuat: \e[0m' No_User
+read -p $'\e[32m  Berapa hari akun acak ini aktif: \e[0m' Days
+echo -e ""
+echo -e ""
+sleep 1
+clear
+MYIP=$(wget -qO- ipv4.icanhazip.com)
+Today="$(date +"%Y-%m-%d")"
+Expire_On=$(date -d "$Days days" +"%Y-%m-%d")
+opensshport="$(netstat -ntlp | grep -i ssh | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g' )"
+dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+squidport="$(cat /etc/privoxy/config | grep -i listen-address | awk '{print $2}' | cut -d: -f2 | xargs )"
+
+echo -e ""
+echo -e "$TITLE"
+echo -e ""
+echo -e " Membuat Akun Acak"
+echo -e ""
+echo -e " Info Akun: "
+echo -e ""
+for (( i=1; i <= $No_User; i++ ))
+do
+	USER=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`
+	useradd -M -N -s /bin/false -e $Expire_On $USER &> /dev/null
+	PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
+	echo $USER:$USER | chpasswd &> /dev/null
+	echo -e "\e[32m Username: \e[0m"$USER
+  echo -e "\e[32m Password: \e[0m"$USER
+ echo -e ""
+done
+echo -e ""
+echo -e "\e[32m Host/IP: \e[0m"$MYIP
+echo -e ""
+echo -e "\e[32m OpenSSH Port: \e[0m"$opensshport
+echo -e ""
+echo -e "\e[32m Dropbear Port: \e[0m"$dropbearport
+echo -e ""
+echo -e "\e[32m SSL Port: \e[0m"$stunnel4port
+echo -e ""
+echo -e "\e[32m Proxy Ports: \e[0m"$squidport
+echo -e ""
+echo -e "\e[32m OpenVPN Port: \e[0m"$openvpnport
+echo -e ""
+echo -e ""

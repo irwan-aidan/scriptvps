@@ -1,0 +1,102 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e "$TITLE"
+echo -e ""
+echo -e "$GRN1 Membuat Akun Baru"
+echo -e ""
+echo -e "$GRN2 Membuat Akun Acak"
+echo -e ""
+echo -e "$GRN3 Membuat Akun Trial"
+echo -e ""
+echo -e "$GRN4 Lihat List Akun"
+echo -e ""
+echo -e "$GRN5 Lihat Detail Akun"
+echo -e ""
+echo -e "$GRN6 Memperpanjang Masa Aktif"
+echo -e ""
+echo -e "$GRN7 Menghapus Akun"
+echo -e ""
+echo -e "$GRN8 Mengunci Akun"
+echo -e ""
+echo -e "$GRN9 Membuka  Akun"
+echo -e ""
+echo -e "$GRN10 Melihat Member yang Tersambung"
+echo -e ""
+echo -e "$GRN11 Menghapus Member Expired"
+echo -e ""
+echo -e "$GRN12 Lihat Member yang Terkunci"
+echo -e ""
+echo -e "$GRN13 Keluar"
+echo -e ""
+read -p "$(echo -e " Silahkan Masukkan Pilihanmu\e[32m [\e[0m1-13\e[32m]\e[0m: ")" Accounts
+echo -e "\n\n"
+sleep 1
+clear
+case $Accounts in
+		1)
+		clear
+		create
+		exit
+		;;
+		2)
+		clear
+		create_random
+		exit
+		;;
+		3)
+		clear
+		create_trial
+		exit
+		;;
+		4)
+		clear
+		user_list
+		exit
+		;;
+		5)
+		clear
+		user_details
+		exit
+		;;
+		6)
+		clear
+		user_extend
+		exit
+		;;
+		7)
+		clear
+		user_delete
+		exit
+		;;
+		8)
+		clear
+		user_lock
+		exit
+		;;
+		9)
+		clear
+		user_unlock
+		exit
+		;;
+		10)
+		clear
+		connections
+		exit
+		;;
+		11)
+		clear
+		delete_expired
+		exit
+		;;
+		12)
+		clear
+		locked_list
+		exit
+		;;
+		13)
+		clear
+		exit
+		;;
+	esac

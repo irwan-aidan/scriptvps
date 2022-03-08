@@ -1,0 +1,71 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e "   [1] Ubah Password Server"
+echo -e ""
+echo -e "   [2] Penggunaan Ram"
+echo -e ""
+echo -e "   [3] Diagnostics"
+echo -e ""
+echo -e "   [4] Benchmark"
+echo -e ""
+echo -e "   [5] SpeedTest"
+echo -e ""
+echo -e "   [6] Exit"
+echo -e ""
+read -p "   Tentukan Pilihanmu [1-6]: " Server
+echo -e ""
+case $Server in
+		1)
+		clear
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Checking root permissions..."
+		echo -e ""
+		sleep 4
+		if [[ $USER != "root" ]]; then
+    echo -e ""
+		echo -e " root Permissions Denied"
+		echo -e ""
+		exit
+		fi
+		read -p " New Password: " Pass
+		echo -e ""
+		sleep 4
+		New_Pass=root:$Pass;
+		echo $New_Pass > passwd
+		chpasswd < passwd
+		rm passwd
+		echo -e " Password Has Been Changed"
+		echo -e ""
+		exit
+		;;
+		2)
+		clear
+		ram
+		exit
+		;;
+		3)
+		clear
+		diagnose
+		exit
+		;;
+		4)
+		clear
+		bench-network
+		exit
+		;;
+		5)
+		clear
+		speedtest --share
+		exit
+		;;
+		6)
+		clear
+		exit
+		;;
+	esac

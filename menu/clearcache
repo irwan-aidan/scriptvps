@@ -1,0 +1,11 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+clear
+
+echo 3 > /proc/sys/vm/drop_caches
+clear
+echo -e "$TITLE"
+echo -e ""
+echo -e ""
+echo -e " Cache Sudah di Bersihkan"
+echo -e ""

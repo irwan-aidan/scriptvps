@@ -1,0 +1,46 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e "$TITLE"
+echo -e ""
+echo -e "$GRN1 MultiLogin"
+echo -e ""
+echo -e "$GRN2 Restart Services"
+echo -e ""
+echo -e "$GRN3 Ubah Ports"
+echo -e ""
+echo -e "$GRN4 Reboot Server"
+echo -e ""
+echo -e "$GRN5 Keluar"
+echo -e ""
+read -p "$(echo -e " Tentukan Pilihanmu\e[32m [\e[0m1-5\e[32m]\e[0m: ")" Options
+echo -e ""
+sleep 2
+clear
+case $Options in
+		1)
+		clear
+		set_multilogin_autokill
+		exit
+		;;
+		2)
+		clear
+		restart_services
+		exit
+		;;
+		3)
+		clear
+		edit_ports
+		exit
+		;;
+		4)
+		clear
+		reboot_sys
+		exit
+		;;
+		5)
+		clear
+		exit
+		;;
+	esac

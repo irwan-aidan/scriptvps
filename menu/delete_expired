@@ -1,0 +1,23 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e ""
+echo -e "$TITLE"
+
+datenow=$(date +%s)
+for user in $(awk -F: '{print $1}' /etc/passwd); do
+expdate=$(chage -l $user|awk -F: '/Account expires/{print $2}')
+echo $expdate | grep -q never && continue
+echo -n "User \`$user' expires on $expdate ... "
+expsec=$(date +%s --date="$expdate")
+diff=$(echo $datenow - $expsec|bc -l)
+echo $diff | grep -q ^\- && echo okay && continue
+# got this far, account must have expired
+userdel -r -f $user  &> /dev/null
+done
+clear
+echo -e ""
+echo -e ""
+echo -e "  Semua \e[31mPengguna Expired\e[0m Telah dihapus"
+echo -e ""

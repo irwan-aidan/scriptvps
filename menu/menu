@@ -1,0 +1,56 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+clear
+
+#echo -e " ╔═══╦╗───╔═══╦═══╦╗─╔╗" | lolcat -a
+#echo -e " ║╔══╣║───║╔═╗║╔═╗║║─║║" | lolcat -a
+#echo -e " ║╚══╣║╔══╣╚══╣╚══╣╚═╝║" | lolcat -a
+#echo -e " ║╔══╣║║╔╗╠══╗╠══╗║╔═╗║" | lolcat -a
+#echo -e " ║║──║╚╣╔╗║╚═╝║╚═╝║║─║║" | lolcat -a
+#echo -e " ╚╝──╚═╩╝╚╩═══╩═══╩╝─╚╝" | lolcat -a
+#echo -e " ╔═╗╔═╗" | lolcat -a
+#echo -e " ║║╚╝║║" | lolcat -a
+#echo -e " ║╔╗╔╗╠══╦═╗╔╗╔╗" | lolcat -a
+#echo -e " ║║║║║║║═╣╔╗╣║║║" | lolcat -a
+#echo -e " ║║║║║║║═╣║║║╚╝║" | lolcat -a
+#echo -e " ╚╝╚╝╚╩══╩╝╚╩══╝" | lolcat -a
+figlet FlaSSH | lolcat -a
+figlet     Menu | lolcat -a
+echo -e ""
+echo -e ""
+echo -e "\e[32m   [1] Mengelola Akun Member \e[0m"
+echo -e ""
+echo -e "\e[32m   [2] Mengelola Server \e[0m"
+echo -e ""
+echo -e "\e[32m   [3] Opsi Lanjutan \e[0m"
+echo -e ""
+echo -e "\e[32m   [4] Keluar\e[0m"
+echo -e ""
+read -p "$(echo -e " \e[32mTentukan Pilihanmu \e[0m \e[32m [\e[0m1-5\e[32m]\e[0m: ")" menu
+echo -e ""
+echo -e ""
+clear
+echo -e "   Perintah di terima  "  | lolcat -a
+sleep 1
+clear
+case $menu in
+		1)
+		clear
+		accounts
+		exit
+		;;
+		2)
+		clear
+		server
+		exit
+		;;
+		3)
+		clear
+		options
+		exit
+		;;
+		4)
+		clear
+		exit
+		;;
+	esac

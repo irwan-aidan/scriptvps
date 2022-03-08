@@ -1,0 +1,10 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == BonvScript == " | lolcat -a
+echo -e ""
+read -p " Username: " User
+echo -e ""
+sleep 1
+user_details_lib $User

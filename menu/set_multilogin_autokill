@@ -1,0 +1,77 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSsh == " | lolcat -a
+echo -e ""
+echo -e "   [1] AutoKill Setiap 5 Minutes"
+echo -e ""
+echo -e "   [2] AutoKill Setiap 15 Minutes"
+echo -e ""
+echo -e "   [3] AutoKill Setiap 30 Minutes"
+echo -e ""
+echo -e "   [4] Matikan AutoKill/MultiLogin"
+echo -e ""
+echo -e "   [5] Keluar"
+echo -e ""
+read -p "   Select from options [1-5]: " AutoKill
+echo -e ""
+case $AutoKill in
+		1)
+		read -p " MultiLogin Diizinkan : " -e -i 1 MultiLogin
+		echo -e ""
+		sleep 2
+		clear
+		echo "*/5 * * * *  root /usr/local/sbin/set_multilogin_autokill_lib $MultiLogin" > /etc/cron.d/set_multilogin_autokill_lib
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Allowed MultiLogin: $MultiLogin"
+		echo -e " AutoKill Setiap: 5 Minutes"
+		echo -e ""
+		exit
+		;;
+		2)
+		read -p " Allowed MultiLogin: " -e -i 1 MultiLogin
+		echo -e ""
+		sleep 2
+		clear
+		echo "*/15 * * * *  root /usr/local/sbin/set_multilogin_autokill_lib $MultiLogin" > /etc/cron.d/set_multilogin_autokill_lib
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Allowed MultiLogin: $MultiLogin"
+		echo -e " AutoKill Setiap: 15 Minutes"
+		echo -e ""
+		exit
+		;;
+		3)
+		read -p " Allowed MultiLogin: " -e -i 1 MultiLogin
+		echo -e ""
+		sleep 2
+		clear
+		echo "*/30 * * * *  root /usr/local/sbin/set_multilogin_autokill_lib $MultiLogin" > /etc/cron.d/set_multilogin_autokill_lib
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Allowed MultiLogin: $MultiLogin"
+		echo -e " AutoKill Setiap: 30 Minutes"
+		echo -e ""
+		exit
+		;;
+		4)
+		clear
+		rm -f /etc/cron.d/set_multilogin_autokill_lib
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " AutoKill MultiLogin Dimatikan"
+		echo -e ""
+		exit
+		;;
+		5)
+		clear
+		exit
+		;;
+	esac
+service cron restart

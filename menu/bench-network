@@ -1,0 +1,6 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+clear
+##wget freevps.us/downloads/bench.sh -O - -o /dev/null|bash
+echo -e " Maaf, Menu ini sudah tidak berfungsi lagi  "
+exit 1

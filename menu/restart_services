@@ -1,0 +1,107 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e "   [1] Restart All Services"
+echo -e ""
+echo -e "   [2] Restart OpenSSH"
+echo -e ""
+echo -e "   [3] Restart Dropbear"
+echo -e ""
+echo -e "   [4] Restart Stunnel4"
+echo -e ""
+echo -e "   [5] Restart OpenVPN"
+echo -e ""
+echo -e "   [6] Restart Squid"
+echo -e ""
+echo -e "   [7] Restart Nginx"
+echo -e ""
+echo -e "   [8] Exit"
+echo -e ""
+read -p "   Tentukan Pilihanmu [1-8]: " Restart
+echo -e ""
+sleep 3
+clear
+case $Restart in
+		1)
+		clear
+		service sshd restart
+		service dropbear restart
+		service stunnel4 restart
+		service openvpn restart
+		service squid restart
+		service nginx restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+    echo -e " Semua Layanan Telah Direstart "
+    echo -e ""
+		exit
+		;;
+		2)
+		clear
+		service sshd restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " SSH Service Restarted"
+		echo -e ""
+		exit
+		;;
+		3)
+		clear
+		service dropbear restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Dropbear Service Restarted"
+		echo -e ""
+		exit
+		;;
+		4)
+		clear
+		service stunnel4 restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Stunnel4 Service Restarted"
+		echo -e ""
+		exit
+		;;
+		5)
+		clear
+		service openvpn restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " OpenVPN Service Restarted"
+		echo -e ""
+		exit
+		;;
+		6)
+		clear
+		service squid restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Squid Service Restarted"
+		echo -e ""
+		exit
+		;;
+		7)
+		clear
+		service nginx restart
+		echo -e ""
+    echo -e " == FlaSSH == " | lolcat -a
+    echo -e ""
+		echo -e " Nginx Service Restarted"
+		echo -e  ""
+		exit
+		;;
+		8)
+		clear
+		exit
+		;;
+	esac

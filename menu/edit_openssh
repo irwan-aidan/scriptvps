@@ -1,0 +1,65 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e ""
+echo -e "$TITLE"
+cd
+source /usr/local/sbin/base-ports
+echo -e ""
+echo -e "\e[32m OpenSSH Ports: \e[0m"$opensshport
+echo -e ""
+read -p $'\e[32m  Which port should be changed?: \e[0m' Port
+egrep "^$Port" /root/opensshport >/dev/null
+if [ $? -eq 0 ]; then
+	READ01="\e[32m From Port $Port to Port?: \e[0m"
+  read -p "$(echo -e "$READ01")" Port_New
+	if grep -Fxq $Port_New /root/dropbearport; then
+		echo -e ""
+		echo -e " Dropbear Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/stunnel4port; then
+		echo -e ""
+		echo -e " Stunnel Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/openvpnport; then
+		echo -e ""
+		echo -e " Openvpn Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	if grep -Fxq $Port_New /root/squidport; then
+		echo -e ""
+		echo -e " Squid Port Conflict"
+		echo -e " Port Is Already In Use"
+		echo -e ""
+		exit
+	fi
+	Port_Change="s|Port $Port|Port $Port_New|g";
+	sed -i "$Port_Change" /etc/ssh/sshd_config
+	service ssh restart > /dev/null
+	rm -f /root/opensshport
+	opensshport="$(netstat -nlpt | grep -i sshd | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+	clear
+	echo -e ""
+	echo -e "$TITLE"
+  echo -e " Successfully Reconfigured"
+  echo -e " your OpenSSH Port is now: $opensshport"
+	echo -e ""
+
+else
+	echo -e ""
+	echo -e "$TITLE"
+	echo -e " Port you entered does not"
+  echo -e " exist in openssh config"
+  echo -e " exiting...."
+	echo -e ""
+fi
+

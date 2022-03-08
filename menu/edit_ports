@@ -1,0 +1,60 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e "  [1] Tampilkan Semua Port"
+echo -e ""
+echo -e "  [2] Ubah Port OpenSSH"
+echo -e ""
+echo -e "  [3] Ubah Port Dropbear"
+echo -e ""
+echo -e "  [4] Ubah Port Stunnel / SSL"
+echo -e ""
+echo -e "  [5] Ubah Port OpenVPN"
+echo -e ""
+echo -e "  [6] Ubah Port Squid"
+echo -e ""
+echo -e "  [7] Keluar"
+echo -e ""
+read -p "  Tentukan Pilihanmu [1-7]: " Port
+echo -e ""
+sleep 2
+clear
+case $Port in
+			1)
+			clear
+			show_ports
+			exit
+			;;
+			2)
+			clear
+			edit_openssh
+			exit
+			;;
+			3)
+			clear
+			edit_dropbear
+			exit
+			;;
+			4)
+			clear
+			edit_stunnel4
+			exit
+			;;
+			5)
+			clear
+			edit_openvpn
+			exit
+			;;
+			6)
+			clear
+			edit_squid3
+			exit
+			;;
+			7)
+			clear
+			exit
+			;;
+	esac

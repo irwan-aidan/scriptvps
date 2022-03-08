@@ -1,0 +1,50 @@
+#!/bin/bash
+source /usr/local/sbin/base-script
+
+clear
+echo -e ""
+echo -e "$TITLE"
+
+MYIP=$(wget -4qO- http://ipinfo.io/ip)
+User=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+Pass=`</dev/urandom tr -dc a-f0-9 | head -c9`
+
+# Trial account expiration day/s
+Days="1"
+
+Today=`date +%s`
+Days_Detailed=$(( $Days * 86400 ))
+Expire_On=$(($Today + $Days_Detailed))
+Expiration=$(date -u --date="1970-01-01 $Expire_On sec GMT" +%Y/%m/%d)
+Expiration_Display=$(date -u --date="1970-01-01 $Expire_On sec GMT" '+%d %b %Y')
+opensshport="$(netstat -ntlp | grep -i ssh | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g' )"
+dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')"
+squidport="$(cat /etc/privoxy/config | grep -i listen-address | awk '{print $2}' | cut -d: -f2 | xargs )"
+
+useradd -e `date -d "$Days days" +"%Y-%m-%d"` -s /bin/false -M $User &> /dev/null
+echo -e "$Pass\n$Pass\n" | passwd $User &> /dev/null
+clear
+echo -e ""
+echo -e " Akun Trial"
+echo -e ""
+echo -e "\e[32m   Host/IP: \e[0m"$MYIP
+echo -e ""
+echo -e "\e[32m   Username: \e[0m"$User
+echo -e ""
+echo -e "\e[32m   Password: \e[0m"$Pass
+echo -e ""
+echo -e "\e[32m   Account Expiry: \e[0m"$Expiration_Display
+echo -e ""
+echo -e "\e[32m   OpenSSH Port: \e[0m"$opensshport
+echo -e ""
+echo -e "\e[32m   Dropbear Port: \e[0m"$dropbearport
+echo -e ""
+echo -e "\e[32m   SSL Port: \e[0m"$stunnel4port
+echo -e ""
+echo -e "\e[32m   Proxy Ports: \e[0m"$squidport
+echo -e ""
+echo -e "\e[32m   OpenVPN Port: \e[0m"$openvpnport
+echo -e ""
+echo -e ""

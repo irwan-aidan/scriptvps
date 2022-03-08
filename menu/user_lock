@@ -1,0 +1,41 @@
+#!/bin/bash
+
+clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+read -p " Nama Pengguna: " User
+egrep "^$User" /etc/passwd >/dev/null
+if [ $? -eq 0 ]; then
+sleep 1
+if grep -Fxq "$User" /etc/Locked_List.txt
+then
+  clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e " Member Sudah Ada Dalam List"
+echo -e ""
+exit
+else
+  clear
+echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+echo -e ""
+echo -e " Member Sudah Terkunci               "
+echo -e " Sukses Ditambahkan kedalam List Terkunci"
+echo -e ""
+echo $User >> /etc/Locked_List.txt
+passwd -l $User
+fi
+
+else
+	clear
+	echo -e ""
+echo -e " == FlaSSH == " | lolcat -a
+  echo -e ""
+	echo -e " Nama Pengguna Tidak Ada"
+	echo -e ""
+	exit
+    exit 1
+fi
